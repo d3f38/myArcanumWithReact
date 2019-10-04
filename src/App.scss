@@ -1,0 +1,913 @@
+$main-text-color: #000000;
+$border-color: #F0F2F3;
+$main-grey-color: #7F8285;
+$main-blue-color: #1774E9;
+$border-lightgrey-color: #F2F2F2;
+$border-semigrey-color: #E5E5E5;
+$border-red-color: #FF4F49;
+$first-letter-color: #FF3029;
+.theme-repository {
+    margin: 0;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.header {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    height: 55px;
+    border-bottom: 1px solid $border-color;
+    padding: 0 32px;
+    @media (max-width: 360px) {
+        padding: 0 16px;
+    }
+}
+
+.search {
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    &__input {
+        outline: none;
+        padding: 5px 10px;
+        border: 1px solid #000;
+        border-radius: 3px;
+        box-shadow: none;
+    }
+    &__button {
+        outline: none;
+        font-weight: bold;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        margin-left: 10px;
+        padding: 5px 15px;
+        background-color: #FFF;
+        box-shadow: none;
+        border: 1px solid $border-lightgrey-color;
+        border-radius: 3px;
+        cursor: pointer;
+        transition: .3s;
+        &:hover {
+            border: 1px solid #000;
+        }
+    }
+}
+
+.main-content {
+    padding: 0 32px;
+    @media (max-width: 360px) {
+        padding: 0;
+    }
+    &_repository {
+        @media (max-width: 360px) {
+            .directory-content {
+                padding: 0 16px;
+            }
+        }
+    }
+}
+
+.icon {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    transition: .3s;
+    &_margin {
+        &_left {
+            margin-left: 5px;
+        }
+        &_right {
+            margin-right: 10px;
+        }
+        &_top {
+            margin-top: 3px;
+        }
+    }
+    &_arrow {
+        background-image: url(./images/arrow.svg);
+    }
+    &_arrow_up {
+        transform: rotate(180deg)
+    }
+    &_markdown {
+        background-image: url(./images/icon-markdown.svg);
+    }
+    &_script {
+        background-image: url(./images/icon-script.svg);
+        &_grey {
+            background-image: url(./images/icon-script-grey.svg);
+        }
+    }
+    &_folder {
+        background-image: url(./images/icon-folder.svg);
+    }
+    &_save-button {
+        background-image: url(./images/icon-save-button.svg);
+    }
+    &_clone {
+        background-image: url(./images/icon-clone.svg);
+    }
+    &_lines {
+        background-image: url(./images/icon-lines.svg);
+    }
+    &_branch {
+        background-image: url(./images/icon-branch.svg);
+    }
+}
+
+.logo {
+    &__image {}
+    &_margin_desktop {
+        margin-right: 40px;
+    }
+}
+
+.choice-repository {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 56px;
+    font-size: 14px;
+    line-height: 18px;
+    color: $main-text-color;
+    box-sizing: border-box;
+    cursor: pointer;
+    &:hover .repository-list {
+        display: block;
+    }
+}
+
+.current-repository {
+    display: flex;
+    align-items: center;
+    height: 53px;
+    border-bottom: 3px solid $border-red-color;
+    &__title {
+        font-weight: bold;
+        margin-right: 3px;
+    }
+    &__name {}
+}
+
+.repository-list {
+    display: none;
+    width: 266px;
+    position: absolute;
+    z-index: 10;
+    ;
+    top: 56px;
+    left: 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    background: #FFFFFF;
+    box-shadow: 0px 4px 16px rgba(53, 73, 93, 0.2);
+    box-sizing: border-box;
+    &__repository-name {
+        padding: 8px 22px;
+        font-size: 14px;
+        line-height: 20px;
+        &:hover {
+            background: #F4F5F6;
+        }
+        &:first-child {
+            padding-top: 14px;
+        }
+        &:last-child {
+            padding-bottom: 18px;
+        }
+    }
+}
+
+.breadcrumbs {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid $border-semigrey-color;
+    font-size: 14px;
+    line-height: 20px;
+    @media (max-width: 360px) {
+        padding: 10px 16px;
+    }
+    &__link {
+        color: $main-grey-color;
+        text-decoration: none;
+        &:hover {
+            color: #000000;
+        }
+        &::after {
+            content: '/';
+            margin: 0 20px;
+        }
+        &:last-child {
+            color: #000000;
+            font-weight: bold;
+            &::after {
+                content: none;
+            }
+        }
+    }
+}
+
+.directory-info {
+    @media (max-width: 360px) {
+        padding: 0 16px;
+    }
+    &__back-button {
+        display: none;
+        width: auto;
+        order: 1;
+        font-size: 13px;
+        line-height: 15px;
+        color: #7F8285;
+        align-items: center;
+        @media (max-width: 360px) {
+            display: flex;
+        }
+    }
+    &__header {
+        @media (max-width: 360px) {
+            order: 3;
+            width: 100%;
+            padding-top: 12px;
+        }
+    }
+    &__show-file-button {
+        height: 28px;
+        display: flex;
+        align-items: center;
+        padding: 0 12px;
+        background: #E6E6E6;
+        border-radius: 4px;
+        font-weight: bold;
+        font-size: 13px;
+        line-height: 15px;
+        @media (max-width: 360px) {
+            order: 2;
+            width: auto;
+        }
+    }
+    &_theme_commit {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-top: 15px;
+        .directory-name {
+            margin-top: 0;
+            margin-bottom: 5px;
+        }
+        .directory-last-commit {
+            margin-top: 0;
+        }
+        @media (max-width: 360px) {
+            flex-wrap: wrap;
+            padding: 0 16px;
+            align-items: center;
+        }
+    }
+}
+
+.directory-name {
+    display: flex;
+    font-size: 24px;
+    line-height: 28px;
+    margin: 15px 0;
+    position: relative;
+    &_theme_commit {
+        margin: 0;
+        @media (max-width: 360px) {
+            margin-bottom: 10px;
+        }
+    }
+    &__main {
+        font-weight: bold;
+        margin-right: 5px;
+    }
+    &__branch {
+        position: relative;
+        color: $main-grey-color;
+        cursor: pointer;
+        &:hover .select-branch {
+            cursor: pointer;
+            display: flex;
+        }
+    }
+    &__branch-name {
+        display: flex;
+        align-items: center;
+    }
+    @media (max-width: 360px) {
+        font-size: 20px;
+    }
+}
+
+.directory-last-commit {
+    font-size: 14px;
+    line-height: 20px;
+    margin: 10px 0;
+    &__hash,
+    &__date {
+        color: $main-blue-color;
+    }
+    &__committer {
+        & span::first-letter {
+            color: red;
+        }
+    }
+}
+
+.directory-content-tabs {
+    height: 40px;
+    padding: 10px 0;
+    border-bottom: 1px solid $border-semigrey-color;
+    box-sizing: border-box;
+    &__tab {
+        text-transform: uppercase;
+        font-weight: bold;
+        color: $main-grey-color;
+        font-size: 16px;
+        line-height: 20px;
+        margin-right: 32px;
+        padding: 10px 0 8px;
+        box-sizing: border-box;
+        border-bottom: 3px solid transparent;
+        cursor: pointer;
+        transition: .3s;
+        &:hover {
+            color: #000000;
+        }
+        &_active {
+            color: #000000;
+            border-bottom: 3px solid $border-red-color;
+            box-sizing: border-box;
+        }
+    }
+}
+
+.directory-content-details {
+    font-size: 14px;
+    line-height: 20px;
+    &_branches {
+        .directory-content-details__name {
+            width: auto;
+        }
+    }
+    &__item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 50px;
+        padding: 0 8px;
+        border-bottom: 1px solid $border-lightgrey-color;
+        @media (max-width: 360px) {
+            height: auto;
+            padding: 12px 0;
+            flex-wrap: wrap;
+            position: relative;
+            justify-content: flex-start;
+            &::after {
+                content: '';
+                width: 9px;
+                height: 21px;
+                position: absolute;
+                top: 50%;
+                margin-top: -11px;
+                right: 0;
+                background-image: url(./images/icon-arrow-right.svg);
+                transform: rotate(180deg);
+                background-repeat: no-repeat;
+                background-size: contain;
+            }
+        }
+        &:last-child {
+            border-bottom: 0;
+        }
+        &_header {
+            font-weight: normal;
+            color: $main-grey-color;
+            border-bottom: 1px solid $border-semigrey-color;
+            @media (max-width: 360px) {
+                display: none;
+            }
+            .directory-content-details__name {
+                font-weight: normal;
+            }
+            .directory-content-details__last-commit,
+            .directory-content-details__commit-hash {
+                color: $main-grey-color;
+            }
+        }
+    }
+    &__name,
+    &__last-commit,
+    &__committer,
+    &__commit-message {
+        width: 16.67%;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+    }
+    &__last-commit {
+        color: $main-blue-color;
+        cursor: pointer;
+        @media (max-width: 360px) {
+            order: 3;
+            width: auto;
+            margin-right: 10px;
+        }
+    }
+    &__commit-message {
+        width: 33.33%;
+        @media (max-width: 360px) {
+            width: 100%;
+            order: 2;
+            margin-bottom: 10px;
+        }
+    }
+    &__date {
+        width: 16.67%;
+        display: flex;
+        justify-content: flex-end;
+        @media (max-width: 360px) {
+            order: 5;
+            width: auto;
+        }
+    }
+    &__name {
+        font-weight: bold;
+        cursor: pointer;
+        @media (max-width: 360px) {
+            width: 100%;
+            order: 1;
+            margin-bottom: 10px;
+        }
+    }
+    &__committer {
+        & span::first-letter {
+            color: $first-letter-color;
+        }
+        @media (max-width: 360px) {
+            order: 4;
+            width: auto;
+            &::before {
+                content: 'by';
+                margin-right: 5px;
+            }
+            &::after {
+                content: ',';
+                margin-right: 5px;
+            }
+        }
+    }
+    &__commit-hash {
+        font-size: 14px;
+        line-height: 20px;
+        color: #177FFD;
+        cursor: pointer;
+    }
+}
+
+.select-branch {
+    display: none;
+    position: absolute;
+    top: 100%;
+    z-index: 99;
+    flex-direction: column;
+    width: 320px;
+    max-height: 360px;
+    background: #FFFFFF;
+    box-shadow: 0px 4px 16px rgba(53, 73, 93, 0.2);
+    border-radius: 5px;
+    &__scrolled-container {
+        overflow-y: auto;
+        height: 100%;
+    }
+    &__title {
+        position: relative;
+    }
+    &__option {
+        width: 100%;
+        height: 58px;
+        padding: 10px 12px;
+        box-sizing: border-box;
+        &:hover {
+            background-color: #F4F5F6;
+            color: #434445;
+            .select-branch__name {
+                color: #000000;
+            }
+            .select-branch__last-commit-date {
+                color: #434445;
+            }
+        }
+        &_selected {
+            color: #FFFFFF;
+            background-color: #4F4F4F;
+            margin: 4px 0;
+            position: relative;
+            .select-branch__name {
+                color: #F2F2F2;
+            }
+            .select-branch__last-commit-date {
+                color: #E0E0E0;
+            }
+            &:hover {
+                background-color: #4F4F4F;
+                .select-branch__name {
+                    color: #F2F2F2;
+                }
+                .select-branch__last-commit-date {
+                    color: #E0E0E0;
+                }
+            }
+            &:after {
+                content: '';
+                display: block;
+                position: relative;
+                top: 12px;
+                border-bottom: 1px solid $border-lightgrey-color;
+            }
+        }
+    }
+    &__name,
+    &__last-commit-date {
+        margin: 0;
+    }
+    &__name {
+        color: #434445;
+        font-size: 14px;
+        line-height: 20px;
+        font-weight: bold;
+    }
+    &__last-commit-date {
+        font-size: 13px;
+        line-height: 20px;
+        color: #7F8285;
+    }
+}
+
+
+/*MARKDOWN*/
+
+.markdown {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    @media (max-width: 360px) {
+        margin-top: 10px;
+    }
+    &__header {
+        width: 100%;
+        height: 42px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 16px;
+        background: #F5F5F5;
+        border: 1px solid #E5E5E5;
+        border-bottom: 0;
+        border-radius: 3px 3px 0 0;
+        box-sizing: border-box;
+        @media (max-width: 360px) {
+            height: auto;
+            flex-direction: column;
+            border-radius: 0;
+            padding: 13px 16px;
+            border-left: 0;
+            border-right: 0;
+        }
+    }
+    &__title {
+        font-size: 14px;
+        line-height: 20px;
+        font-weight: bold;
+        @media (max-width: 360px) {
+            width: 100%;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+    }
+    &__content {
+        background: #FFFFFF;
+        border: 1px solid #E5E5E5;
+        box-sizing: border-box;
+        &_text {
+            overflow: visible;
+            padding: 25px 32px;
+            @media (max-width: 360px) {
+                padding: 25px;
+            }
+        }
+        &_table {
+            @media (max-width: 360px) {
+                overflow-x: scroll
+            }
+        }
+        @media (max-width: 360px) {
+            border-left: 0;
+            border-right: 0;
+        }
+    }
+    &__h1 {
+        font-size: 20px;
+        font-weight: bold;
+        line-height: 24px;
+        margin-top: 0;
+    }
+    &__paragraph {
+        font-size: 14px;
+        line-height: 18px;
+        word-break: break-word;
+    }
+    &__file-size {
+        font-size: 13px;
+        line-height: 20px;
+        font-weight: normal;
+        color: #999999;
+    }
+    &__save-file {
+        box-sizing: border-box;
+        padding: 6px 12px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        &:hover {
+            border-color: #c2c2c2;
+        }
+    }
+    &__letter {
+        &_M {
+            font-size: 14px;
+            line-height: 20px;
+            color: #6B69C7;
+        }
+    }
+    &__path {
+        font-size: 14px;
+        line-height: 20px;
+        word-break: break-all;
+    }
+    &__diff-value {
+        @media (max-width: 360px) {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+        }
+    }
+    &__values {
+        @media (max-width: 360px) {
+            font-size: 14px;
+            line-height: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+    }
+    &__value {
+        font-weight: bold;
+        &_plus {
+            color: #19BC4D;
+            margin-right: 16px;
+        }
+        &_minus {
+            color: #FF3029;
+            margin-right: 24px;
+        }
+    }
+}
+
+
+/*COLOR CODE*/
+
+.code {
+    &_comment {
+        color: #8694A2;
+        &_green {
+            color: #008F00;
+        }
+    }
+    &_function {
+        color: #005FBA;
+    }
+    &_operator {
+        font-weight: bold;
+        color: #00234B;
+    }
+    &_text {
+        color: #005FBA;
+    }
+}
+
+
+/*COLOR LINE*/
+
+.line {
+    &_added {
+        background: #E6FFED;
+    }
+    &_removed {
+        background: #FFEEF0;
+    }
+}
+
+
+/*FILE-LINE*/
+
+.file-line {
+    font-family: 'Courier New', Courier, monospace;
+    &__number {
+        font-size: 12px;
+        line-height: 20px;
+        padding: 0 30px;
+        text-align: right;
+        vertical-align: top;
+        color: #999999;
+    }
+    &__code {
+        font-size: 12px;
+        line-height: 20px;
+        color: #00234B;
+    }
+}
+
+
+/*DIFF*/
+
+.diff-line {
+    border-collapse: collapse;
+    font-family: 'Courier New', Courier, monospace;
+    * {
+        box-sizing: border-box;
+    }
+    &_nowrap {
+        white-space: nowrap;
+    }
+    &__first-line {
+        display: flex;
+        justify-content: space-between;
+    }
+    &__hunk {
+        font-family: 'Courier New', Courier, monospace;
+        padding: 0 5px;
+        text-align: left;
+        color: #B8BEC3;
+        white-space: nowrap;
+    }
+    &__lines {
+        font-family: 'Courier New', Courier, monospace;
+        text-align: left;
+        font-size: 12px;
+        line-height: 20px;
+        color: #B8BEC3;
+        white-space: nowrap;
+        &_active {
+            color: #000000;
+        }
+    }
+    &__number {
+        width: 75px;
+        font-size: 12px;
+        line-height: 20px;
+        padding: 0 30px;
+        text-align: right;
+        vertical-align: top;
+        color: #999999;
+        &_second {
+            padding-left: 0;
+        }
+    }
+    &__code {
+        font-size: 12px;
+        line-height: 20px;
+        vertical-align: top;
+        color: #00234B;
+        width: 100%;
+    }
+    .code {
+        &_comment {
+            color: #8694A2;
+        }
+        &_function {
+            color: #005FBA;
+        }
+        &_operator {
+            font-weight: bold;
+            color: #00234B;
+        }
+        &_text {
+            color: #005FBA;
+        }
+    }
+}
+
+
+/*HISTORY COMMIT*/
+
+.history-per-day {
+    padding-top: 15px;
+    &__date {
+        font-size: 16px;
+        line-height: 20px;
+        font-weight: bold;
+        color: #7F8285;
+        margin-bottom: 16px;
+    }
+}
+
+.commit-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    &:last-child &__image::after {
+        content: none;
+    }
+    &__name {
+        font-size: 14px;
+        line-height: 18px;
+        font-weight: bold;
+        margin-bottom: 3px;
+    }
+    &__left-container {
+        display: flex;
+    }
+    &__image {
+        width: 40px;
+        height: 40px;
+        background-image: url(./images/commit-image.svg);
+        background-repeat: no-repeat;
+        background-size: contain;
+        margin-right: 12px;
+        position: relative;
+        &::after {
+            content: '';
+            position: absolute;
+            left: 19px;
+            top: 42px;
+            display: block;
+            width: 2px;
+            height: 30px;
+            background: #B8BEC3;
+            border-radius: 10px;
+        }
+    }
+    &__main {
+        display: flex;
+        flex-direction: column;
+    }
+    &__message {
+        font-size: 13px;
+        line-height: 18px;
+        margin-bottm: 4px;
+    }
+    &__hash {
+        font-size: 13px;
+        line-height: 18px;
+        color: #1774E9;
+    }
+    &__footer {
+        font-size: 13px;
+        line-height: 20px;
+    }
+    &__committer,
+    &__time {
+        color: #434445;
+    }
+    &__committer::first-letter {
+        color: $first-letter-color;
+    }
+    &__tag {
+        width: 20px;
+        height: 20px;
+        background-image: url(./images/tag.svg);
+        background-repeat: no-repeat;
+        background-size: contain;
+    }
+}
+
+
+/*FOOTER*/
+
+.footer {
+    display: flex;
+    justify-content: space-between;
+    // position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 18px 20px 14px;
+    font-size: 13px;
+    line-height: 18px;
+    color: $main-grey-color;
+    &__ui-version {
+        margin-right: 32px;
+    }
+    &__link {
+        text-decoration: none;
+        color: $main-blue-color;
+    }
+}
