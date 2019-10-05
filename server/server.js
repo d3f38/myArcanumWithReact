@@ -21,6 +21,10 @@ app.get('/api/repos', (req, res) => {
     getRepos(req, res);
 });
 
+app.get('/api/repos/lastcommit/:repositoryId', (req, res) => {
+    getCommitsForDirectory(req, res)
+});
+
 app.get('/api/repos/:repositoryId/commits/:commitHash', (req, res) => {
     getCommits(req, res);
 });
@@ -82,6 +86,37 @@ function getCommits(req, res) {
     });
 }
 
+function getCommitsForDirectory(req, res) {
+    const repositoryId = req.params.repositoryId;
+
+    execFile('git', ['log','--name-only', '--pretty=format:"commitInfo: %h/%s/%an/%ar;"'], {
+        cwd: `${initPath}/${repositoryId}`
+    }, (err, out) => {
+        if (err) {
+            console.error(err)
+            res.status(404).send("NOT FOUND.");
+        } else {
+            let commitsObject = [];
+
+            const filesArray = out.replace(/"/g,'').split('\n');
+            res.send(filesArray);
+            // let commitInfo = '';
+            // let neededFile = '';
+            // const hasCommitInfo = item => !!item.match('commitInfo');
+
+            // for (let i = 0; i < filesArray.length; i++) {
+            //     const file = filesArray[i];
+
+            //     if (hasCommitInfo(file)) commitInfo = file;
+            //     neededFile = (!hasCommitInfo(file) && file.match(/^cmake.+/)) ? file : '';
+            //     if (commitInfo && neededFile) break;
+                
+            // }
+            // res.send(commitInfo + ' => ' + neededFile);
+        }
+    });
+}
+
 function getDiffCommits(req, res) {
     const repositoryId = req.params.repositoryId;
     const commitHash = req.params.commitHash;
@@ -123,7 +158,7 @@ function getContentFromDirectory(req, res) {
     const path = req.params.path;
 
     if (commitHash) {
-        execFile('git', ['ls-tree', '-r', '--name-only', commitHash], {
+        execFile('git', ['ls-tree', '--name-only', commitHash], {
             cwd: `${initPath}/${repositoryId}`
         }, (err, out) => {
             if (err) {
@@ -134,11 +169,11 @@ function getContentFromDirectory(req, res) {
                 const filesFromDirectory = filesArray.filter(file => file.match(path));
                 const newArray = filesFromDirectory.map(file => file.replace(`${path}/`, ''));
 
-                res.send(newArray)
+                res.send(newArray.sort().filter(item => item))
             }
         });
     } else {
-        execFile('git', ['ls-tree', '-r', '--name-only', 'master'], {
+        execFile('git', ['ls-tree', '--name-only', 'master'], {
             cwd: `${initPath}/${repositoryId}`
         }, (err, out) => {
 
@@ -146,9 +181,9 @@ function getContentFromDirectory(req, res) {
                 console.error(err);
                 res.status(404).send("NOT FOUND.");
             } else {
-                const filesArray = out.split('\n');
+                const filesArray = out.split('\n').filter(item => item);
 
-                res.send(filesArray)
+                res.send(filesArray.sort())
             }
         });
     }

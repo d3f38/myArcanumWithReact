@@ -1,5 +1,7 @@
 import React from 'react';
 import arrow from './../../images/arrow.svg';
+//import { browserHistory } from 'react-router';
+import { Link } from 'react-router-dom'
 import './ChoiceRepository.scss';
 
 class ChoiceRepository extends React.Component {
@@ -31,13 +33,24 @@ class ChoiceRepository extends React.Component {
         )
     }
 
+    handleClick(item) {
+        //browserHistory.push(`/api/repos/${item}`)
+    }
+
     render() {
-        const repositories = this.state.isLoaded && this.state.items.map(item =>
-            <li key={item} 
-                className="repository-list__repository-name "
-                href ="">
-                {item}
-            </li>
+        const repositories = this.state.isLoaded && this.state.items.map(item => {
+            const href = `/api/repos/${item}`;
+            return (
+                <li key={item} 
+                    className="repository-list__repository-name "
+                    href ="">
+                    <Link to={href} onClick={() => this.handleClick(item)}>{item}</Link>
+                    {/* <a href={href}>{item}</a> */}
+                </li>
+            )
+            
+        }
+            
         );
 
         return(
