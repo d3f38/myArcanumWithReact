@@ -33,6 +33,8 @@ class App extends React.Component {
 					<Switch>
 						<Route exact path='/' component={DirectoryContent}/>
 						<Route path='/api/repos/:repositoryId' component={DirectoryContent}/>
+						<Route path='/api/repos/:repositoryId/tree/:commitHash/:path([^/]*)?' component={DirectoryContent}/>
+						/api/repos/:repositoryId/blob/:commitHash/:pathToFile([^/]*)?
 					</Switch>
 						
 					

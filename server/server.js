@@ -6,7 +6,8 @@ const cors = require('cors')
 
 const {
     exec,
-    execFile
+    execFile,
+    execFileSync
 } = require('child_process');
 const initPath = process.argv[2];
 
@@ -88,9 +89,9 @@ function getCommits(req, res) {
 
 function getCommitsForDirectory(req, res) {
     const repositoryId = req.params.repositoryId;
-
     execFile('git', ['log','--name-only', '--pretty=format:"commitInfo: %h/%s/%an/%ar;"'], {
-        cwd: `${initPath}/${repositoryId}`
+        cwd: `${initPath}/${repositoryId}`,
+        maxBuffer: 100000000
     }, (err, out) => {
         if (err) {
             console.error(err)
@@ -156,37 +157,45 @@ function getContentFromDirectory(req, res) {
     const repositoryId = req.params.repositoryId;
     const commitHash = req.params.commitHash;
     const path = req.params.path;
+    let currentCommitHash = commitHash ? commitHash : 'master';
 
-    if (commitHash) {
-        execFile('git', ['ls-tree', '--name-only', commitHash], {
-            cwd: `${initPath}/${repositoryId}`
-        }, (err, out) => {
-            if (err) {
-                console.error(err);
-                res.status(404).send("NOT FOUND.");
-            } else {
-                const filesArray = out.split('\n');
-                const filesFromDirectory = filesArray.filter(file => file.match(path));
-                const newArray = filesFromDirectory.map(file => file.replace(`${path}/`, ''));
+    execFile('git', ['ls-tree', '-r','--name-only', currentCommitHash], {
+        cwd: `${initPath}/${repositoryId}`
+    }, (err, out) => {
+        if (err) {
+            console.error(err);
+            res.status(404).send("NOT FOUND.");
+        } else {
+            const filesArray = out.split('\n').filter(item => item);
+            const filesFromDirectory = filesArray.filter(file => file.match(path));
+            const newArray = [];
+            
+            const isFolder = item => !!item.match('/'); 
+            filesFromDirectory.forEach(file => {
+                
+                const currentFile = file.replace(`${path}/`, '');
+                
+                if (isFolder(currentFile)) {
+                    const separetedFile = currentFile.match(/[^\/]+(?=\/)?/)[0];
+                    const output = 'folder/' + separetedFile;
+                
+                    if (newArray.indexOf(output) == -1) {
+                        newArray.push(output)
+                    }
+                } else {
+                    const separetedFile = currentFile;
+                    const typeFile = separetedFile.substr(separetedFile.lastIndexOf('.') + 1) || separetedFile;
+                    const output = typeFile + '/' + separetedFile;
 
-                res.send(newArray.sort().filter(item => item))
-            }
-        });
-    } else {
-        execFile('git', ['ls-tree', '--name-only', 'master'], {
-            cwd: `${initPath}/${repositoryId}`
-        }, (err, out) => {
-
-            if (err) {
-                console.error(err);
-                res.status(404).send("NOT FOUND.");
-            } else {
-                const filesArray = out.split('\n').filter(item => item);
-
-                res.send(filesArray.sort())
-            }
-        });
-    }
+                    if (newArray.indexOf(output) == -1) {
+                        newArray.push(output);
+                    }
+                }
+            });
+            res.send(newArray.sort())
+        }
+    });
+    
 }
 
 function getContentFromFile(req, res) {
