@@ -11,14 +11,19 @@ import Markdown from './Components/Markdown/Markdown';
 import Footer from './Components/Footer/Footer';
 //const DirectoryContent = lazy(() => import('./Components/DirectoryContent/DirectoryContent'));
 
-
+const hasMarkdown = () => [...document.querySelectorAll('.directory-content-details__name')].some(item => item.textContent.match('README.md'))
 
 class App extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {markdown: hasMarkdown()};
+		
+	}
 
 	componentDidMount(){
 		window.state = {
 			repository: '',
-			file: ''
+			file: '',
 		}
 	}
 	
@@ -32,13 +37,13 @@ class App extends React.Component {
 					<DirectoryInfo />
 					<Switch>
 						<Route exact path='/' component={DirectoryContent}/>
-						<Route path='/api/repos/:repositoryId' component={DirectoryContent}/>
+						<Route exact path='/api/repos/:repositoryId' component={DirectoryContent}/>
 						<Route path='/api/repos/:repositoryId/tree/:commitHash/:path([^/]*)?' component={DirectoryContent}/>
-						/api/repos/:repositoryId/blob/:commitHash/:pathToFile([^/]*)?
+						<Route path='/api/repos/:repositoryId/blob/:commitHash/:pathToFile([^/]*)?' component={Markdown}/>
 					</Switch>
-						
 					
-					<Markdown />
+					
+					
 				</div>
 				<Footer />
 			</div>

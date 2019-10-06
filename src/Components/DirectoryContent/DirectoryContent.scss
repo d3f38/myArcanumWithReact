@@ -1,0 +1,165 @@
+$main-text-color: #000000;
+$border-color: #F0F2F3;
+$main-grey-color: #7F8285;
+$main-blue-color: #1774E9;
+$border-lightgrey-color: #F2F2F2;
+$border-semigrey-color: #E5E5E5;
+$border-red-color: #FF4F49;
+$first-letter-color: #FF3029;
+
+.directory-content-tabs {
+    height: 40px;
+    padding: 10px 0;
+    border-bottom: 1px solid $border-semigrey-color;
+    box-sizing: border-box;
+    &__tab {
+        text-transform: uppercase;
+        font-weight: bold;
+        color: $main-grey-color;
+        font-size: 16px;
+        line-height: 20px;
+        margin-right: 32px;
+        padding: 10px 0 8px;
+        box-sizing: border-box;
+        border-bottom: 3px solid transparent;
+        cursor: pointer;
+        transition: .3s;
+        &:hover {
+            color: #000000;
+        }
+        &_active {
+            color: #000000;
+            border-bottom: 3px solid $border-red-color;
+            box-sizing: border-box;
+        }
+    }
+}
+
+.directory-content-details {
+    font-size: 14px;
+    line-height: 20px;
+    &_branches {
+        .directory-content-details__name {
+            width: auto;
+        }
+    }
+    &__item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 50px;
+        padding: 0 8px;
+        border-bottom: 1px solid $border-lightgrey-color;
+        @media (max-width: 360px) {
+            height: auto;
+            padding: 12px 0;
+            flex-wrap: wrap;
+            position: relative;
+            justify-content: flex-start;
+            &::after {
+                content: '';
+                width: 9px;
+                height: 21px;
+                position: absolute;
+                top: 50%;
+                margin-top: -11px;
+                right: 0;
+                background-image: url(./../../images/icon-arrow-right.svg);
+                transform: rotate(180deg);
+                background-repeat: no-repeat;
+                background-size: contain;
+            }
+        }
+        &:last-child {
+            border-bottom: 0;
+        }
+        &_header {
+            font-weight: normal;
+            color: $main-grey-color;
+            border-bottom: 1px solid $border-semigrey-color;
+            @media (max-width: 360px) {
+                display: none;
+            }
+            .directory-content-details__name {
+                font-weight: normal;
+            }
+            .directory-content-details__last-commit,
+            .directory-content-details__commit-hash {
+                color: $main-grey-color;
+            }
+        }
+    }
+    &__name,
+    &__last-commit,
+    &__committer,
+    &__commit-message {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+    }
+    &__last-commit {
+        color: $main-blue-color;
+        cursor: pointer;
+        @media (max-width: 360px) {
+            order: 3;
+            width: auto;
+            margin-right: 10px;
+        }
+    }
+    &__commit-message {
+        flex: 2;
+        @media (max-width: 360px) {
+            width: 100%;
+            order: 2;
+            margin-bottom: 10px;
+        }
+    }
+    &__date {
+        width: 16.67%;
+        flex: 1;
+        display: flex;
+        justify-content: flex-end;
+        @media (max-width: 360px) {
+            order: 5;
+            width: auto;
+        }
+    }
+    &__name {
+        font-weight: bold;
+        cursor: pointer;
+        flex: 2;
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        @media (max-width: 360px) {
+            width: 100%;
+            order: 1;
+            margin-bottom: 10px;
+        }
+    }
+    &__committer {
+        & span::first-letter {
+            color: $first-letter-color;
+        }
+        @media (max-width: 360px) {
+            order: 4;
+            width: auto;
+            &::before {
+                content: 'by';
+                margin-right: 5px;
+            }
+            &::after {
+                content: ',';
+                margin-right: 5px;
+            }
+        }
+    }
+    &__commit-hash {
+        font-size: 14px;
+        line-height: 20px;
+        color: #177FFD;
+        cursor: pointer;
+    }
+}

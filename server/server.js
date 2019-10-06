@@ -211,7 +211,7 @@ function getContentFromFile(req, res) {
             console.error(err);
             res.status(404).send("NOT FOUND.");
         } else {
-            res.send(out)
+            res.send(out.split('\n'))
         }
     });
 }
