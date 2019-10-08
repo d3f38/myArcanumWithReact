@@ -1,7 +1,7 @@
 ## Содержание
 1. [Установка](https://github.com/d3f38/myArcanumWithReact/blob/master/README.md#установка)
 2. [Запуск проекта](https://github.com/d3f38/myArcanumWithReact/blob/master/README.md#запуск)
-3. [Интеграционное тестирование](https://github.com/d3f38/myArcanumWithReact/blob/master/README.md#тестирование)
+3. [Тестирование](https://github.com/d3f38/myArcanumWithReact/blob/master/README.md#тестирование)
 
 ## Установка
 
@@ -39,7 +39,7 @@
 
 ## Тестирование
 
-##№ Интеграционное тестирование
+### Интеграционное тестирование
 
 #### Установка
 
