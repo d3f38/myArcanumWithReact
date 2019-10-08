@@ -1,14 +1,14 @@
 ## Содержание
 1. [Установка](https://github.com/d3f38/myArcanumWithReact/blob/master/README.md#установка)
-2. [Запуск проекта](https://github.com/d3f38/myArcanumWithReact/blob/master/README.md#запуск+проекта)
-3. [Интеграционное тестирование](https://github.com/d3f38/myArcanumWithReact/blob/master/README.md#интеграционное%20тестирование)
+2. [Запуск проекта](https://github.com/d3f38/myArcanumWithReact/blob/master/README.md#запуск)
+3. [Интеграционное тестирование](https://github.com/d3f38/myArcanumWithReact/blob/master/README.md#тестирование)
 
 ## Установка
 
 1. Склонировать репозиторий `https://github.com/d3f38/myArcanumWithReact.git`
 2. Перейти в репозиторий и установить зависимости, прописав команду `npm install`
 
-## Запуск проекта
+## Запуск
 
 Для просмотра проекта необходимо:
 
@@ -37,7 +37,9 @@
 - оптимизация запросов на сервер, т.к. большие репозитории долго грузятся;
 
 
-## Интеграционное тестирование
+## Тестирование
+
+##№ Интеграционное тестирование
 
 #### Установка
 
