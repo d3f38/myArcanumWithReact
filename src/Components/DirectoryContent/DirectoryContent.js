@@ -40,8 +40,12 @@ class DirectoryContent extends React.Component {
 
 	render () {
 		let details = '';
-
-		if (this.state.isLoaded && this.state.lastCommitInfo.length) {
+		if (!this.state.isLoaded) {
+			details = 
+				<div className="directory-content-details__item_loading">
+					Loading..
+				</div>
+		} else if (this.state.isLoaded && this.state.lastCommitInfo.length) {
 			repositoryName = getRepositoryNameFromUrl()
 			const pathName = getPathNameFromUrl();
 			
@@ -69,7 +73,7 @@ class DirectoryContent extends React.Component {
 				return (
 					<div className="directory-content-details__item " key={detailsName}>
 						<div className="directory-content-details__name ">
-							<Link to={href + detailsName}><span className={iconClass} />{detailsName}</Link>
+							<Link to={href + detailsName} className="directory-content-details__name_link "><span className={iconClass} />{detailsName}</Link>
 						</div>
 						<div className="directory-content-details__last-commit ">
 							{detailsCommit}
@@ -88,7 +92,7 @@ class DirectoryContent extends React.Component {
 			});
 		} else {
 			details = 
-				<div className="directory-content-details__item ">
+				<div className="directory-content-details__item directory-content-details__item_empty">
 					Directory is empty..
 				</div>
 		}

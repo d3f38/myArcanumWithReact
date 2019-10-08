@@ -33,11 +33,11 @@ class Breadcrumbs extends React.Component {
 		const pathname = getPathNameFromUrl();
 
 		let href = `/api/repos/${repositoryName}/tree/master/`;
-		let newHref = '';
+		let newHref = `/api/repos/${repositoryName}/tree/master/`;
 		const breadcrumbsArray = this.state.breadcrumbs.map((item, index)=> {
-			if (index == 0) href = `/api/repos/${item}`
+			if (index == 0) href = `/api/repos/${item}/`
 			else {
-				href += item + '/';
+				newHref += item + '/';
 			}
 
 			return (

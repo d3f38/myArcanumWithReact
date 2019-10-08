@@ -1,5 +1,5 @@
 import React, {lazy, Suspense} from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 
 import './App.scss';
 
@@ -33,13 +33,17 @@ class App extends React.Component {
 				<Header/>
 				
 				<div className="main-content main-content_repository">
-					<Breadcrumbs />
+					
 					<DirectoryInfo />
+					<Route path='/' component={Breadcrumbs}/>
 					<Switch>
-						<Route exact path='/' component={DirectoryContent}/>
+						
+						
+						<Route exact path='/api/repos' component={DirectoryContent}/>
 						<Route exact path='/api/repos/:repositoryId' component={DirectoryContent}/>
 						<Route path='/api/repos/:repositoryId/tree/:commitHash/:path([^/]*)?' component={DirectoryContent}/>
 						<Route path='/api/repos/:repositoryId/blob/:commitHash/:pathToFile([^/]*)?' component={Markdown}/>
+						<Redirect to="/api/repos"/>
 					</Switch>
 					
 					

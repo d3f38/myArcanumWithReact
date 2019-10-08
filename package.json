@@ -3,8 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "chai": "^4.2.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "mocha": "^6.2.1",
     "node-sass": "^4.12.0",
     "path-to-regexp": "^3.1.0",
     "react": "^16.10.1",
@@ -33,5 +35,8 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:5000/"
+  "proxy": "http://localhost:5000/",
+  "devDependencies": {
+    "hermione": "^2.12.6"
+  }
 }

@@ -169,8 +169,8 @@ function getContentFromDirectory(req, res) {
             const filesArray = out.split('\n').filter(item => item);
             const filesFromDirectory = filesArray.filter(file => file.match(path));
             const newArray = [];
-            
             const isFolder = item => !!item.match('/'); 
+            
             filesFromDirectory.forEach(file => {
                 
                 const currentFile = file.replace(`${path}/`, '');
