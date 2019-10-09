@@ -12,7 +12,7 @@ function getPathNameFromUrl () {
     return repositoryPath;
 }
 
-function requestData (state, repositoryName, path) {
+exports.requestData = function requestData (state, repositoryName, path) {
     let directoryItemInfo = [];
     fetch(path)
       .then(res => res.json())

@@ -41,7 +41,7 @@ class App extends React.Component {
 						
 						<Route exact path='/api/repos' component={DirectoryContent}/>
 						<Route exact path='/api/repos/:repositoryId' component={DirectoryContent}/>
-						<Route path='/api/repos/:repositoryId/tree/:commitHash/:path([^/]*)?' component={DirectoryContent}/>
+						<Route path='/api/repos/:repositoryId/tree/:commitHash/:path([^/]*)?' component={DirectsstaroryContent}/>
 						<Route path='/api/repos/:repositoryId/blob/:commitHash/:pathToFile([^/]*)?' component={Markdown}/>
 						<Redirect to="/api/repos"/>
 					</Switch>
