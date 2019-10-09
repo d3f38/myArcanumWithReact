@@ -19,6 +19,7 @@ exports.getRepos = function getRepos(req, res, initPath) {
 exports.getCommits = function getCommits(req, res, initPath) {
     const repositoryId = req.params.repositoryId;
     const commitHash = req.params.commitHash;
+    console
     execFile('git', ['log', commitHash, '--pretty=format:"{commit: %h, date: %ad, comments: %s}"'], {
         cwd: `${initPath}/${repositoryId}`
     }, (err, out) => {
@@ -100,7 +101,7 @@ exports.getContentFromDirectory = function getContentFromDirectory(req, res, ini
     const commitHash = req.params.commitHash;
     const path = req.params.path;
     let currentCommitHash = commitHash ? commitHash : 'master';
-console.log(`${initPath}/${repositoryId}`)
+
     execFile('git', ['ls-tree', '-r','--name-only', currentCommitHash], {
         cwd: `${initPath}/${repositoryId}`
     }, (err, out) => {
@@ -108,7 +109,6 @@ console.log(`${initPath}/${repositoryId}`)
             console.error(err);
             res.status(404).send("NOT FOUND.");
         } else {
-            console.log(out)
             const filesArray = out.split('\n').filter(item => item);
             const filesFromDirectory = filesArray.filter(file => file.match(path));
             const newArray = [];
@@ -135,6 +135,7 @@ console.log(`${initPath}/${repositoryId}`)
                     }
                 }
             });
+            console.log(newArray)
             res.send(newArray.sort())
         }
     });
@@ -154,7 +155,7 @@ exports.getContentFromFile = function getContentFromFile(req, res, initPath) {
             console.error(err);
             res.status(404).send("NOT FOUND.");
         } else {
-            res.send(out.split('\n'))
+            res.send(out.split('\n').filter(item => item))
         }
     });
 }

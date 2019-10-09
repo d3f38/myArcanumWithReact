@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
 import './DirectoryContent.scss';
-import { requestData, getRepositoryNameFromUrl, getPathNameFromUrl } from './utils';
+const { requestData, getRepositoryNameFromUrl, getPathNameFromUrl } = require('./utils.js');
 
 let repositoryName = getRepositoryNameFromUrl();
 
