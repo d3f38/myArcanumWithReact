@@ -1,8 +1,5 @@
 
-const {getRepos, getCommits, getCommitsForDirectory, getDiffCommits, getContentFromDirectory, getContentFromFile, deleteRepository, cloneRepository} = require('./server/utils')
-const { requestData } = require('./src/Components/DirectoryContent/utils')
-
-const assert = require('chai').assert;
+const {getRepos, getContentFromDirectory, getContentFromFile} = require('./server/utils')
 
 const expect = require('chai').expect;
 
