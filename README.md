@@ -39,7 +39,7 @@
 
 ## Тестирование
 
-После выполнения [установки](https://github.com/d3f38/myArcanumWithReact/blob/master/README.md#установка) для тестирования вам понадобится скачать репозиторий:   
+После выполнения [установки](https://github.com/d3f38/myArcanumWithReact/blob/master/README.md#установка) для тестирования вам понадобится скачать репозиторий? на котором будут проверяться тесты:   
 ` git clone https://github.com/d3f38/Yandex.git ./testData/Yandex`
 
 ### Интеграционное тестирование
