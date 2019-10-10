@@ -60,8 +60,7 @@ class ChoiceRepository extends React.Component {
             const href = `/api/repos/${item}`;
             return (
                 <li key={item} 
-                    className="repository-list__repository-name "
-                    href ="">
+                    className="repository-list__repository-name ">
                     <Link to={href} onClick={() => this.selectRepo(item)}>{item}</Link>
                     {/* <a href={href}>{item}</a> */}
                 </li>

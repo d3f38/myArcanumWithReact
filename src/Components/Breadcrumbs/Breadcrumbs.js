@@ -22,7 +22,6 @@ class Breadcrumbs extends React.Component {
 		const locationChanged = this.props.location !== prevProps.location;
 
 		if (locationChanged) {
-			console.log(2)
 			this.setState = {
 				breadcrumbs: getBreadcrumbs()
 			};
