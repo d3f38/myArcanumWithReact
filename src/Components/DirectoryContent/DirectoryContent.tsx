@@ -6,7 +6,7 @@ const { requestData, getRepositoryNameFromUrl, getPathNameFromUrl } = require('.
 let repositoryName = getRepositoryNameFromUrl();
 
 class DirectoryContent extends React.Component {
-	constructor(props) {
+	constructor(props: {}) {
 		super(props);
 		this.state = {
 			error: null,
@@ -23,7 +23,7 @@ class DirectoryContent extends React.Component {
 		requestData(context, repositoryName, this.state.location)
 	}
 
-	componentDidUpdate(prevProps) {
+	componentDidUpdate(prevProps: {}) {
 		const locationChanged = this.props.location !== prevProps.location;
 
 		if (locationChanged) {
@@ -32,14 +32,14 @@ class DirectoryContent extends React.Component {
 		}
 	}
 
-	handleClick(item) {
+	handleClick(item: string) {
         this.setState({
 			location: item
 		})
     }
 
 	render () {
-		let details = '';
+		let details: JSX.Element;
 		if (!this.state.isLoaded) {
 			details = 
 				<div className="directory-content-details__item_loading">
