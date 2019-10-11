@@ -5,6 +5,11 @@ function getRepositoryNameFromUrl () {
     return repositoryName;
 }
 
+interface Loca {
+
+}
+
+
 function getPathNameFromUrl () {
     const regexpPath = new RegExp ('(?<=\/(tree|blob)\/master\/).+');
     const repositoryPath = window.location.pathname.match(regexpPath) ? window.location.pathname.match(regexpPath)[0] : '';

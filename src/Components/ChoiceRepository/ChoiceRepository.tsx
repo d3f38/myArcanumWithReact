@@ -8,20 +8,26 @@ const regexpRepository = new RegExp ('(?<=\/api\/repos\/)[^\/]+');
 let repositoryName = window.location.pathname.match(regexpRepository) ? window.location.pathname.match(regexpRepository)[0] : '';
 
 interface State {
-    error: null,
-    isLoaded: false,
-    items: [],
-    selected: string
+    error: null;
+    isLoaded: boolean;
+    items: string[];
+    selected: string;
+    location: string;
 };
 
-class ChoiceRepository extends React.Component {
-    constructor(props: {}) {
+interface Props {
+    location: string;
+}
+
+class ChoiceRepository extends React.Component<{}, State, Props> {
+    constructor(props: {location: string}) {
         super(props);
-        this.state<State> = {
+        this.state = {
             error: null,
             isLoaded: false,
             items: [],
-            selected:string : repositoryName
+            selected: repositoryName,
+            location: ''
         };
     }
     
@@ -44,11 +50,12 @@ class ChoiceRepository extends React.Component {
         )
     }
 
-    componentDidUpdate(prevProps: {}) {
-		const locationChanged = this.props.location: string !== prevProps.location;
+    componentDidUpdate(prevProps: {location: string}) {
+		const locationChanged = this.props.location !== prevProps.location;
 
 		if (locationChanged) {
-            document.querySelector('.current-repository__name').textContent = this.state.selected;
+            let currentRepository = document.querySelector('.current-repository__name');
+            currentRepository.textContent = this.state.selected;
         }
     }
 
