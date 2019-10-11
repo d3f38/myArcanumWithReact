@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
 import './DirectoryContent.scss';
-const { requestData, getRepositoryNameFromUrl, getPathNameFromUrl } = require('./utils.js');
+const { requestData, getRepositoryNameFromUrl, getPathNameFromUrl } = require('./utils');
 
 let repositoryName = getRepositoryNameFromUrl();
 
@@ -77,7 +77,6 @@ class DirectoryContent extends React.Component<Props, State> {
 				const detailsCommiter = detailsArray[4];
 				const detailsDate = detailsArray[5];
 
-				const isFile = (item: string) => !!item.match(/\./);
 				let iconClass = 'icon icon_folder icon_margin_right ';
 				let href = pathName ? `/api/repos/${repositoryName}/tree/master/${pathName}/` : `/api/repos/${repositoryName}/tree/master/`;
 			

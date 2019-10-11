@@ -19,15 +19,12 @@ class Breadcrumbs extends React.Component<{}, State, Props> {
 	
 	render () {
 		const repositoryName = getRepositoryNameFromUrl();
-		const pathname = getPathNameFromUrl();
-
+	
 		let href = `/api/repos/${repositoryName}/tree/master/`;
-		let newHref = `/api/repos/${repositoryName}/tree/master/`;
+
 		const breadcrumbsArray = this.state.breadcrumbs.map((item, index)=> {
 			if (index == 0) href = `/api/repos/${item}/`
-			else {
-				newHref += item + '/';
-			}
+
 
 			return (
 				<Link to={href} className="breadcrumbs__link" key={item}>{item}</Link>	

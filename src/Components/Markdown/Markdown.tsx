@@ -1,8 +1,24 @@
 import React from 'react';
 import './Markdown.scss';
 
-class Markdown extends React.Component {
-    constructor(props) {
+interface Location {
+    pathname: string;
+}
+
+interface State {
+    error: null;
+    isLoaded: boolean;
+    content: string[];
+    fileName: string;
+    location: string;
+};
+
+interface Props {
+    location: Location;
+}
+
+class Markdown extends React.Component<Props, State> {
+    constructor(props: {location: Location}) {
         super(props);
         this.state = {
             error: null,
