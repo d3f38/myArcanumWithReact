@@ -5,14 +5,32 @@ const { requestData, getRepositoryNameFromUrl, getPathNameFromUrl } = require('.
 
 let repositoryName = getRepositoryNameFromUrl();
 
-class DirectoryContent extends React.Component {
-	constructor(props: {}) {
+interface Location {
+    pathname: string;
+}
+
+interface State {
+    error: null;
+    isLoaded: boolean;
+    items: string[];
+	location: string;
+	repository: string;
+	lastCommitInfo: string[];
+};
+
+interface Props {
+    location: Location;
+}
+
+
+class DirectoryContent extends React.Component<Props, State> {
+	constructor(props: {location: Location}) {
 		super(props);
 		this.state = {
 			error: null,
 			isLoaded: false,
 			repository: repositoryName,
-			lastCommitInfo: '',
+			lastCommitInfo: [],
 			location:  window.location.pathname,
 			items: []
 		};
@@ -23,7 +41,7 @@ class DirectoryContent extends React.Component {
 		requestData(context, repositoryName, this.state.location)
 	}
 
-	componentDidUpdate(prevProps: {}) {
+	componentDidUpdate(prevProps: {location: Location}) {
 		const locationChanged = this.props.location !== prevProps.location;
 
 		if (locationChanged) {
@@ -39,7 +57,7 @@ class DirectoryContent extends React.Component {
     }
 
 	render () {
-		let details: JSX.Element;
+		let details: JSX.Element[] | JSX.Element;
 		if (!this.state.isLoaded) {
 			details = 
 				<div className="directory-content-details__item_loading">
@@ -50,7 +68,7 @@ class DirectoryContent extends React.Component {
 			const pathName = getPathNameFromUrl();
 			
 
-			details = this.state.lastCommitInfo.map(item => {
+			details = this.state.lastCommitInfo.map(function(item: string) {
 				const detailsArray = item.split('/');
 				const detailsType = detailsArray[0];
 				const detailsName = detailsArray[1];
@@ -59,7 +77,7 @@ class DirectoryContent extends React.Component {
 				const detailsCommiter = detailsArray[4];
 				const detailsDate = detailsArray[5];
 
-				const isFile = item => !!item.match(/\./);
+				const isFile = (item: string) => !!item.match(/\./);
 				let iconClass = 'icon icon_folder icon_margin_right ';
 				let href = pathName ? `/api/repos/${repositoryName}/tree/master/${pathName}/` : `/api/repos/${repositoryName}/tree/master/`;
 			

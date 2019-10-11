@@ -5,7 +5,11 @@ import { Link } from 'react-router-dom'
 import './ChoiceRepository.scss';
 
 const regexpRepository = new RegExp ('(?<=\/api\/repos\/)[^\/]+');
-let repositoryName = window.location.pathname.match(regexpRepository) ? window.location.pathname.match(regexpRepository)[0] : '';
+let repositoryName = window.location.pathname.match(regexpRepository) ? window.location.pathname.match(regexpRepository)![0] : '';
+
+interface Location {
+    pathname: string;
+}
 
 interface State {
     error: null;
@@ -16,11 +20,11 @@ interface State {
 };
 
 interface Props {
-    location: string;
+    location: Location;
 }
 
-class ChoiceRepository extends React.Component<{}, State, Props> {
-    constructor(props: {location: string}) {
+class ChoiceRepository extends React.Component<Props, State> {
+    constructor(props: {location: Location}) {
         super(props);
         this.state = {
             error: null,
@@ -50,12 +54,12 @@ class ChoiceRepository extends React.Component<{}, State, Props> {
         )
     }
 
-    componentDidUpdate(prevProps: {location: string}) {
+    componentDidUpdate(prevProps: {location: Location}) {
 		const locationChanged = this.props.location !== prevProps.location;
 
 		if (locationChanged) {
             let currentRepository = document.querySelector('.current-repository__name');
-            currentRepository.textContent = this.state.selected;
+            currentRepository!.textContent = this.state.selected;
         }
     }
 
