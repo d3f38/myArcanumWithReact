@@ -28,7 +28,7 @@ interface Res {
     status: (item:number) => { send: (item: string) => void  };
 }
 
-function getRepos(req: Req, res: Res, initPath: string) {
+exports.getRepos = function getRepos(req: Req, res: Res, initPath: string) {
     fs.readdir(initPath, {
         "withFileTypes": true
     }, (err: Error, files: []) => {
@@ -37,7 +37,7 @@ function getRepos(req: Req, res: Res, initPath: string) {
     });
 }
 
-function getCommits(req: Req, res: Res, initPath: string) {
+exports.getCommits = function getCommits(req: Req, res: Res, initPath: string) {
     const repositoryId = req.params.repositoryId;
     const commitHash = req.params.commitHash;
     console
@@ -66,7 +66,7 @@ function getCommits(req: Req, res: Res, initPath: string) {
     });
 }
 
-function getCommitsForDirectory(req: Req, res: Res, initPath: string) {
+exports.getCommitsForDirectory = function getCommitsForDirectory(req: Req, res: Res, initPath: string) {
     const repositoryId = req.params.repositoryId;
     execFile('git', ['log','--name-only', '--pretty=format:"commitInfo: %h/%s/%an/%ar;"'], {
         cwd: `${initPath}/${repositoryId}`,
@@ -82,7 +82,7 @@ function getCommitsForDirectory(req: Req, res: Res, initPath: string) {
     });
 }
 
-function getDiffCommits(req: Req, res: Res, initPath: string) {
+exports.getDiffCommits = function getDiffCommits(req: Req, res: Res, initPath: string) {
     const repositoryId = req.params.repositoryId;
     const commitHash = req.params.commitHash;
     let currentCommit: string, previousCommit: string;
@@ -117,7 +117,7 @@ function getDiffCommits(req: Req, res: Res, initPath: string) {
     });
 }
 
-function getContentFromDirectory(req: Req, res: Res, initPath: string) {
+exports.getContentFromDirectory = function getContentFromDirectory(req: Req, res: Res, initPath: string) {
     const repositoryId = req.params.repositoryId;
     const commitHash = req.params.commitHash;
     const path = req.params.path;
@@ -162,7 +162,7 @@ function getContentFromDirectory(req: Req, res: Res, initPath: string) {
     
 }
 
-function getContentFromFile(req: Req, res: Res, initPath: string) {
+exports.getContentFromFile = function getContentFromFile(req: Req, res: Res, initPath: string) {
     const repositoryId = req.params.repositoryId;
     const commitHash = req.params.commitHash;
     const pathToFile = req.params.pathToFile;
@@ -180,7 +180,7 @@ function getContentFromFile(req: Req, res: Res, initPath: string) {
     });
 }
 
-function deleteRepository(req: Req, res: Res, initPath: string) {
+exports.deleteRepository = function deleteRepository(req: Req, res: Res, initPath: string) {
     const repositoryId = req.params.repositoryId;
 
     fs.rmdir(`${initPath}/${repositoryId}`, (err: Error) => {
@@ -193,7 +193,7 @@ function deleteRepository(req: Req, res: Res, initPath: string) {
     });
 }
 
-function cloneRepository(req: Req, res: Res, initPath: string) {
+exports.cloneRepository = function cloneRepository(req: Req, res: Res, initPath: string) {
     execFile('git', ['clone', req.body.url], {
         cwd: `${initPath}`
     }, (err: Error, out: string) => {
@@ -206,4 +206,4 @@ function cloneRepository(req: Req, res: Res, initPath: string) {
         }
     });
 }
-export { getRepos, getCommits, getCommitsForDirectory, getDiffCommits, getContentFromDirectory, getContentFromFile, deleteRepository, cloneRepository }
+

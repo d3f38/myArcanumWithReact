@@ -23,7 +23,6 @@
     "noEmit": true
   },
   "include": [
-    "src",
-    "server"
+    "src"
   ]
 }

@@ -1,4 +1,4 @@
-import React, {lazy, Suspense} from 'react';
+import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
 import './App.scss';
@@ -9,24 +9,9 @@ import DirectoryInfo from './Components/DirectoryInfo/DirectoryInfo';
 import DirectoryContent from './Components/DirectoryContent/DirectoryContent';
 import Markdown from './Components/Markdown/Markdown';
 import Footer from './Components/Footer/Footer';
-//const DirectoryContent = lazy(() => import('./Components/DirectoryContent/DirectoryContent'));
-
-const hasMarkdown = () => [...document.querySelectorAll('.directory-content-details__name')].some(item => item.textContent.match('README.md'))
 
 class App extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = {markdown: hasMarkdown()};
-		
-	}
 
-	componentDidMount(){
-		window.state = {
-			repository: '',
-			file: '',
-		}
-	}
-	
 	render () {
 		return (
 			<div className="theme-repository ">
