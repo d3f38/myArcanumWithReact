@@ -3,11 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@std/esm": "^0.26.0",
+    "@types/cors": "^2.8.6",
     "@types/jest": "^24.0.18",
     "@types/node": "^12.7.12",
     "@types/react-router-dom": "^5.1.0",
     "chai": "^4.2.0",
     "cors": "^2.8.5",
+    "esm": "^3.2.25",
     "express": "^4.17.1",
     "mocha": "^6.2.1",
     "node-sass": "^4.12.0",
@@ -43,6 +46,7 @@
   "devDependencies": {
     "@types/react": "^16.9.5",
     "@types/react-dom": "^16.9.1",
-    "hermione": "^2.12.6"
+    "hermione": "^2.12.6",
+    "ts-node": "^8.4.1"
   }
 }
