@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "es2018",
     "module": "esnext",
     "jsx": "react",
     "strict": true,
@@ -9,9 +9,9 @@
     ],
     "esModuleInterop": true,
     "lib": [
+      "es2018",
       "dom",
-      "dom.iterable",
-      "esnext"
+      "dom.iterable"
     ],
     "allowJs": true,
     "skipLibCheck": true,
@@ -23,6 +23,7 @@
     "noEmit": true
   },
   "include": [
-    "src"
+    "src",
+    "server"
   ]
 }

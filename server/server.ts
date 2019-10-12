@@ -5,15 +5,6 @@ const port = 5000;
 const cors = require('cors');
 const {getRepos, getCommits, getCommitsForDirectory, getDiffCommits, getContentFromDirectory, getContentFromFile, deleteRepository, cloneRepository} = require("./utils") ;
 
-// import express from 'express';
-// import express from "express";
-// const app = express();
-// const port = 5000;
-// import cors from 'cors';
-// import {getRepos, getCommits, getCommitsForDirectory, getDiffCommits, getContentFromDirectory, getContentFromFile, deleteRepository, cloneRepository} from "./utils";
-
-// const   {getRepos} = require("./utils") ;
-
 interface Status {
     send: ([]) => void;
 }
@@ -43,6 +34,8 @@ app.listen(port, (err: Error) => {
     if (err) { console.log(err); };
     console.log('Listening on port ' + port);
 });
+
+// req: Req, res: Res
 
 app.get('/api/repos', (req: Req, res: Res) => {
     getRepos(req, res, initPath);
