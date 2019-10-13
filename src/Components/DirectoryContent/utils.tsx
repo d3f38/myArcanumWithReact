@@ -1,19 +1,35 @@
-exports.getRepositoryNameFromUrl = function getRepositoryNameFromUrl () {
+function getRepositoryNameFromUrl () {
     const regexpRepository = new RegExp ('(?<=\/api\/repos\/)[^\/]+');
-    const repositoryName = window.location.pathname.match(regexpRepository) ? window.location.pathname.match(regexpRepository)[0] : '';
+    const repositoryName = window.location.pathname.match(regexpRepository) ? window.location.pathname.match(regexpRepository)![0] : '';
 
     return repositoryName;
 }
 
-exports.getPathNameFromUrl = function getPathNameFromUrl () {
+function getPathNameFromUrl () {
     const regexpPath = new RegExp ('(?<=\/tree\/master\/).+');
-    const repositoryPath = window.location.pathname.match(regexpPath) ? window.location.pathname.match(regexpPath)[0] : '';
+    const repositoryPath = window.location.pathname.match(regexpPath) ? window.location.pathname.match(regexpPath)![0] : '';
 
     return repositoryPath;
 }
 
-exports.requestData = function requestData (state, repositoryName, path) {
-    let directoryItemInfo = [];
+interface Location {
+  pathname: string;
+}
+
+interface State {
+  error: null;
+  isLoaded: boolean;
+  content: string[];
+  fileName: string;
+  location: string;
+};
+
+interface Props {
+  location: Location;
+}
+
+function requestData (state:{setState: ({}) => void}, repositoryName: string, path: string) {
+    let directoryItemInfo: string[] = [];
     fetch(path)
       .then(res => res.json())
       .then(
@@ -24,9 +40,9 @@ exports.requestData = function requestData (state, repositoryName, path) {
               .then(
                   (secondResult) => {
                     
-                    firstResult.forEach(element => {
+                    firstResult.forEach((element: string) => {
                       let commitInfo, neededFile;
-                      const hasCommitInfo = item => !!item.match('commitInfo');
+                      const hasCommitInfo = (item: string) => !!item.match('commitInfo');
     
                       for (let i = 0; i < secondResult.length; i++) {
                           const file = secondResult[i];
@@ -68,3 +84,4 @@ exports.requestData = function requestData (state, repositoryName, path) {
 }
 
 
+export { getRepositoryNameFromUrl,getPathNameFromUrl, requestData }

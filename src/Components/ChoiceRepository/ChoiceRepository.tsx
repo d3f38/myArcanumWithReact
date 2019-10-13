@@ -5,16 +5,33 @@ import { Link } from 'react-router-dom'
 import './ChoiceRepository.scss';
 
 const regexpRepository = new RegExp ('(?<=\/api\/repos\/)[^\/]+');
-let repositoryName = window.location.pathname.match(regexpRepository) ? window.location.pathname.match(regexpRepository)[0] : '';
+let repositoryName = window.location.pathname.match(regexpRepository) ? window.location.pathname.match(regexpRepository)![0] : '';
 
-class ChoiceRepository extends React.Component {
-    constructor(props) {
+interface Location {
+    pathname: string;
+}
+
+interface State {
+    error: null;
+    isLoaded: boolean;
+    items: string[];
+    selected: string;
+    location: string;
+};
+
+interface Props {
+    location: Location;
+}
+
+class ChoiceRepository extends React.Component<Props, State> {
+    constructor(props: {location: Location}) {
         super(props);
         this.state = {
             error: null,
             isLoaded: false,
             items: [],
-            selected: repositoryName
+            selected: repositoryName,
+            location: ''
         };
     }
     
@@ -37,19 +54,16 @@ class ChoiceRepository extends React.Component {
         )
     }
 
-    componentDidUpdate(prevProps) {
+    componentDidUpdate(prevProps: {location: Location}) {
 		const locationChanged = this.props.location !== prevProps.location;
 
 		if (locationChanged) {
-            document.querySelector('.current-repository__name').textContent = this.state.selected;
+            let currentRepository = document.querySelector('.current-repository__name');
+            currentRepository!.textContent = this.state.selected;
         }
     }
 
-    handleClick(item) {
-        console.log('click')
-    }
-
-    selectRepo (item) {
+    selectRepo (item: string) {
         this.setState({
             selected: item
         })

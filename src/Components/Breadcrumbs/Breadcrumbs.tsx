@@ -3,41 +3,28 @@ import './Breadcrumbs.scss';
 import { getRepositoryNameFromUrl, getPathNameFromUrl, getBreadcrumbs } from './utils';
 import { Link } from 'react-router-dom';
 
-console.log(getBreadcrumbs())
-class Breadcrumbs extends React.Component {
-	constructor(props) {
+interface State {
+	breadcrumbs: string[];
+}
+interface Props {
+	location: string;
+}
+class Breadcrumbs extends React.Component<{}, State, Props> {
+	constructor(props: Props) {
 		super(props);
 		this.state = {
 			breadcrumbs: getBreadcrumbs()
 		};
 	}
 	
-	componentDidMount() {
-		this.setState = {
-			breadcrumbs: getBreadcrumbs()
-		};
-	}
-
-	componentDidUpdate(prevProps) {
-		const locationChanged = this.props.location !== prevProps.location;
-
-		if (locationChanged) {
-			this.setState = {
-				breadcrumbs: getBreadcrumbs()
-			};
-		}
-	}
 	render () {
 		const repositoryName = getRepositoryNameFromUrl();
-		const pathname = getPathNameFromUrl();
-
+	
 		let href = `/api/repos/${repositoryName}/tree/master/`;
-		let newHref = `/api/repos/${repositoryName}/tree/master/`;
+
 		const breadcrumbsArray = this.state.breadcrumbs.map((item, index)=> {
 			if (index == 0) href = `/api/repos/${item}/`
-			else {
-				newHref += item + '/';
-			}
+
 
 			return (
 				<Link to={href} className="breadcrumbs__link" key={item}>{item}</Link>	
