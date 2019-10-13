@@ -2,7 +2,7 @@
 1. [Установка](https://github.com/d3f38/myArcanumWithReact/blob/master/README.md#установка)
 2. [Запуск проекта](https://github.com/d3f38/myArcanumWithReact/blob/master/README.md#запуск)
 3. [Тестирование](https://github.com/d3f38/myArcanumWithReact/blob/master/README.md#тестирование)
-4. [Переход на TypeScript](https://github.com/d3f38/myArcanumWithReact/blob/master/README.md#переход-на-TypeScript)
+4. [Переход на TypeScript](https://github.com/d3f38/myArcanumWithReact/blob/my-app-with-ts/README.md#переход-на-TypeScript)
 
 ## Установка
 
