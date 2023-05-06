@@ -37,6 +37,6 @@
   },
   "proxy": "http://localhost:5000/",
   "devDependencies": {
-    "hermione": "^2.12.6"
+    "hermione": "^7.0.8"
   }
 }
